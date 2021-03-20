@@ -52,7 +52,6 @@ function solution3() {
     });
   });
 }
-
 //solution3();
 
 function solution4() {
@@ -64,8 +63,25 @@ function solution4() {
     document.getElementById("app").innerHTML = table;
   });
 }
+//solution4();
 
-solution4();
+async function solution5() {
+  let employees = await fetchJson("http://localhost:3000/employees");
+  let roles = await fetchJson("http://localhost:3000/roles");
+  let table = renderTable(employees, roles);
+  document.getElementById("app").innerHTML = table;
+}
+//solution5();
+
+async function solution6() {
+  let [employees, roles] = await Promise.all([
+    fetchJson("http://localhost:3000/employees"),
+    fetchJson("http://localhost:3000/roles"),
+  ]);
+  let table = renderTable(employees, roles);
+  document.getElementById("app").innerHTML = table;
+}
+solution6();
 
 function renderTable(employees, roles) {
   //O método map() invoca a função callback passada por argumento para cada elemento do Array e devolve um novo Array como resultado.

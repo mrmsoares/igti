@@ -45,12 +45,19 @@ function fetchJson(url) {
 }
 
 function solution3() {
-  fetchJson("http://localhost:3000/employees").then((employees) => {
-    fetchJson("http://localhost:3000/roles").then((roles) => {
-      let table = renderTable(employees, roles);
-      document.getElementById("app").innerHTML = table;
+  fetchJson("http://localhost:3000/employees")
+    .then((employees) => {
+      fetchJson("http://localhost:3000/roles")
+        .then((roles) => {
+          let table = renderTable(employees, roles);
+          document.getElementById("app").innerHTML = table;
+        })
+        // Chamamos a função showError para mostra a mensagem de erro.
+        .catch(showError);
+    })
+    .catch((error) => {
+      showError();
     });
-  });
 }
 //solution3();
 
@@ -61,25 +68,35 @@ function solution4() {
   ]).then(([employees, roles]) => {
     let table = renderTable(employees, roles);
     document.getElementById("app").innerHTML = table;
-  });
+    // Passamos como último parâmetro a função showError para mostar a mensagem de erro.
+  }, showError);
 }
 //solution4();
 
 async function solution5() {
-  let employees = await fetchJson("http://localhost:3000/employees");
-  let roles = await fetchJson("http://localhost:3000/roles");
-  let table = renderTable(employees, roles);
-  document.getElementById("app").innerHTML = table;
+  // Com funções assincronas, tratamos o erro com try/catch
+  try {
+    let employees = await fetchJson("http://localhost:3000/employees");
+    let roles = await fetchJson("http://localhost:3000/roles");
+    let table = renderTable(employees, roles);
+    document.getElementById("app").innerHTML = table;
+  } catch (error) {
+    showError(error);
+  }
 }
 //solution5();
 
 async function solution6() {
-  let [employees, roles] = await Promise.all([
-    fetchJson("http://localhost:3000/employees"),
-    fetchJson("http://localhost:3000/roles"),
-  ]);
-  let table = renderTable(employees, roles);
-  document.getElementById("app").innerHTML = table;
+  try {
+    let [employees, roles] = await Promise.all([
+      fetchJson("http://localhost:3000/employees"),
+      fetchJson("http://localhost:3000/roles"),
+    ]);
+    let table = renderTable(employees, roles);
+    document.getElementById("app").innerHTML = table;
+  } catch (error) {
+    showError(error);
+  }
 }
 solution6();
 
@@ -96,4 +113,8 @@ function renderTable(employees, roles) {
   });
   // O método join() junta todos os elementos de um array (ou um array-like object) em uma string e retorna esta string.
   return `<table>${rows.join("")}</table>`;
+}
+
+function showError(employees, roles) {
+  document.getElementById("app").innerHTML = "Erro ao carregar dados.";
 }

@@ -8,14 +8,23 @@
     <title>Desafio 01 - IGTI</title>
   </head>
   <body>
-    <div id="app">
-      <div class="filters">
-        <h2>Options</h2>
-        Carregando...
-        <form action="" id="for" id="form"></form>
-      </div>
-    </div>
+    <div id="errors"></div>
 
-    <script src="script.js"></script>
+    <form action="" id="for" id="form">
+      <label for="name">Name: <input name="name" /></label>
+      <label for="salary">Salary: <input name="salary" type="number" /></label>
+      <label for="role_id">ole: <input name="role_id" /></label>
+
+      <div>
+        <button type="button" id="bdelete">Delete</button>
+        <button type="reset" id="bcancel">Cancel</button>
+        <button type="submit" id="bcreate">Create</button>
+      </div>
+    </form>
+
+    <ul></ul>
+
+    <script src="http.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

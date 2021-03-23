@@ -118,3 +118,28 @@ function renderTable(employees, roles) {
 function showError(employees, roles) {
   document.getElementById("app").innerHTML = "Erro ao carregar dados.";
 }
+
+/*
+// CRIAR
+
+fecth(`http://localhost:3000/employees`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(employee),
+});
+
+// ATUALIZAR
+
+fecth(`http://localhost:3000/employees/${id}`, {
+  method: "PUT",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify(employee),
+});
+
+// EXCLUIR
+
+fecth(`http://localhost:3000/employees/${id}`, {
+  method: "DELETE",
+});
+
+*/

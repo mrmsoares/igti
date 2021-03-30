@@ -1,5 +1,6 @@
-function fetchJson(url) {
-  return fetch(url).then((resp) => {
+// Passamos dois parâmetros na função e no retorno da função
+function fetchJson(url, options) {
+  return fetch(url, options).then((resp) => {
     if (resp.ok) {
       return resp.json();
     } else {
@@ -8,35 +9,34 @@ function fetchJson(url) {
   });
 }
 
+const baseUrl = "http://localhost:3000";
+
 function listEmployees() {
-  return fetchJson("http://localhost:3000/employees");
+  return fetchJson(`${baseUrl}/employees`);
 }
 
 function listRoles() {
-  return fetchJson("http://localhost:3000/roles");
+  return fetchJson(`${baseUrl}/roles`);
 }
 
-/*
-// CRIAR
+function updateEmployee(id, employee) {
+  return fetchJson(`${baseUrl}/employees/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(employee),
+  });
+}
 
-fecth(`http://localhost:3000/employees`, {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(employee),
-});
+function createEmployee(employee) {
+  return fetchJson(`${baseUrl}/employees`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(employee),
+  });
+}
 
-// ATUALIZAR
-
-fecth(`http://localhost:3000/employees/${id}`, {
-  method: "PUT",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(employee),
-});
-
-// EXCLUIR
-
-fecth(`http://localhost:3000/employees/${id}`, {
-  method: "DELETE",
-});
-
-*/
+function deleteEmployee(id) {
+  return fetchJson(`${baseUrl}/employees/${id}`, {
+    method: "DELETE",
+  });
+}
